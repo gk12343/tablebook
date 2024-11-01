@@ -586,18 +586,21 @@ window.onclick = function(event) {
             }
         });
 
+	    
+
         // Function to handle bill printing
         function printBill() {
 			
-			
-			filename=currentTable
-			
-			//delete order file
+				// Function to get the table name from the URL
+		function getTableName() {
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get('table');
+		}
 			
 			const currentTable =  getTableName();
 			console.log("table name from url ",currentTable);
 			const tableName = currentTable;
-			const savedOrder = JSON.parse(localStorage.getItem(filename)) || {};
+			const savedOrder = JSON.parse(localStorage.getItem(currentTable)) || {};
 		
 			const data = {
                 table_name: tableName,
