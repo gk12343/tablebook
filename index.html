@@ -421,18 +421,9 @@ function loadOrder() {
 
 function saveOrder() {
 
-	try{
+	
     localStorage.setItem(currentTable, JSON.stringify(orderList));
 	}
-	catch{
-	
-	
-	
-	}
-	// Trigger download of the JSON file
-      const filename = `${currentTable}.json`;
-    //downloadJSON(orderList, filename);
-}
 
 
         // Call loadOrder on page load
