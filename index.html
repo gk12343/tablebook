@@ -604,6 +604,10 @@ window.onclick = function(event) {
             .then(data => {
                 // Display the data
                 console.log(data)
+		const userName = data.users[0].name;
+               console.log(userName)
+
+		    
             })
             .catch(error => {
                 console.error('Error fetching JSON:', error);
