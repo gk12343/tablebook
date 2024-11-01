@@ -830,14 +830,7 @@ window.onclick = function(event) {
         
 		
 		
-            // Clear the order
-            totalAmount = 0;
-            for (const itemName in orderList) {
-                delete orderList[itemName];
-            }
-            updateOrderSummary();
-            updateTotalPrice();
-            saveOrder(); // Clear saved order from localStorage
+           
         }
 		
 		
