@@ -364,7 +364,7 @@
             <h2>Order Summary</h2>
             <div id="order-items"></div>
             <div id="total-price">Total: ₹0.00</div>
-            <button class="settle-print-btn"  onclick="printBill()">Print& Settle</button>
+            <button class="settle-print-btn"  onclick="printBill()">Place order</button>
         </div>
     </div>
 
@@ -594,16 +594,17 @@ window.onclick = function(event) {
 			
 			//delete order file
 			
-			 fetch(`/delete?filename=${filename}`, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('message').innerText = data.message || data.error;
-            })
-            .catch(error => {
-                document.getElementById('message').innerText = 'An error occurred: ' + error.message;
-            });
+			const currentTable =  getTableName();
+			console.log("table name from url ",currentTable);
+			const tableName = currentTable;
+			const savedOrder = JSON.parse(localStorage.getItem(filename)) || {};
+		
+			const data = {
+                table_name: tableName,
+				data: savedOrder
+            };
+			console.log(data);
+
 			
 			
 		
