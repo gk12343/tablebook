@@ -737,12 +737,22 @@ window.onclick = function(event) {
 
 		
 function loadCategoriesAndItems() {
-    // Retrieve data from localStorage
-    let data = JSON.parse(localStorage.getItem("uploadedData"));
 
-    console.log("Retrieved Data:", data);
+	const jsonUrl = 'https://raw.githubusercontent.com/gk12343/tablebook/main/data.json';
 
-    // Validate that data is an array
+    // Fetch the JSON data
+    fetch(jsonUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Display the JSON data in the HTML
+       // document.getElementById('json-output').textContent = JSON.stringify(data, null, 2);
+	   
+	       // Validate that data is an array
     if (Array.isArray(data)) {
         // Get references to the HTML elements
         let sidebar = document.querySelector(".sidebar ul");
@@ -803,6 +813,21 @@ function loadCategoriesAndItems() {
     } else {
         console.error("Data retrieved from localStorage is not an array");
     }
+	   
+	   
+      })
+      .catch(error => {
+        document.getElementById('json-output').textContent = 'Error fetching data: ' + error;
+      });
+
+	
+
+
+
+
+
+
+
 }
 
 
