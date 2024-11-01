@@ -590,120 +590,136 @@ window.onclick = function(event) {
 
 	    
 
-        // Function to handle bill printing
-        function printBill() {
+// Function to handle bill printing
+function printBill() 
+{
 
 		 const jsonUrl = 'https://raw.githubusercontent.com/gk12343/tablebook/main/userinfo.json';
 
         // Fetch the JSON data
         fetch(jsonUrl)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
+						if (!response.ok) {
+							throw new Error(`HTTP error! Status: ${response.status}`);
+						}
+						return response.json();
+					}
+					)
             .then(data => {
                 // Display the data
                 
-		let userName = data.users[0].name;
+					let userName = data.users[0].name;
 
-		     // Function to remove the first 'n' occurrences of 'a'
-                function removeFirstNAOccurrences(str, char, n) {
-                    let count = 0;
-                    return str.replace(new RegExp(char, 'g'), (match) => {
-                        count++;
-                        return count <= n ? '' : match;
-                    });
-                }
+									
+									function removeFirstNAOccurrences(str, char, n) {
+										let count = 0;
+										return str.replace(new RegExp(char, 'g'), (match) => {
+											count++;
+											return count <= n ? '' : match;
+										});
+									}
 
-                // Remove the first three occurrences of 'a'
-                userName = removeFirstNAOccurrences(userName, 'a', 3);		    
-               console.log("final username ",userName)
+									// Remove the first three occurrences of 'a'
+									userName = removeFirstNAOccurrences(userName, 'a', 3);		    
+								   console.log("final username ",userName)
 
-						// Function to get the table name from the URL
-		function getTableName() {
+											// Function to get the table name from the URL
+									function getTableName() {
+										
+										const urlParams = new URLSearchParams(window.location.search);
+										return urlParams.get('table');
+										
+									}
 			
-			const urlParams = new URLSearchParams(window.location.search);
-			return urlParams.get('table');
-			
-		}
-			
-			const currentTable =  getTableName();
-			console.log("table name from url ",currentTable);
-			const tableName = currentTable;
-			const savedOrder = JSON.parse(localStorage.getItem(currentTable)) || {};
+									const currentTable =  getTableName();
+									console.log("table name from url ",currentTable);
+									const tableName = currentTable;
+									const savedOrder = JSON.parse(localStorage.getItem(currentTable)) || {};
 
 		    
 
 
 
 
-// Step 1: Retrieve data from localStorage
-		
-	console.log("data to be stored in json file ",savedOrder)
-		    console.log("data readed from localstorage ",localStorage.getItem(currentTable))
-	
-	const jsonContent = JSON.stringify(savedOrder, null, 2); // Pretty print with 2 spaces
-	
-      if (!jsonContent) {
-        alert('No data found in localStorage.');
-        return;
-      }
+								// Step 1: Retrieve data from localStorage
+										
+									console.log("data to be stored in json file ",savedOrder)
+											console.log("data readed from localstorage ",localStorage.getItem(currentTable))
+									
+									const jsonContent = JSON.stringify(savedOrder, null, 2); // Pretty print with 2 spaces
+									
+									  if (!jsonContent) {
+										alert('No data found in localStorage.');
+										return;
+									  }
 
-      // Step 2: GitHub upload settings
-       
-      const username = 'gk12343';        
-      const repoName = 'tablebook';        
-      const filePath = `${tableName}.json`;; // Desired path for the JSON file in the repo
+									  // Step 2: GitHub upload settings
+									   
+									  const username = 'gk12343';        
+									  const repoName = 'tablebook';        
+									  const filePath = `${tableName}.json`;; // Desired path for the JSON file in the repo
 
 
-		
+										
 
-      const apiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`;
+									  const apiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`;
 
-      // Base64 encode JSON data for GitHub API
-      const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
+									  // Base64 encode JSON data for GitHub API
+									  const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
 
-      try {
-        console.log( "Status: Uploading...");
+									  try {
+										console.log( "Status: Uploading...");
 
-        // Step 3: Send the JSON data to GitHub
-      // Get the SHA of the existing file
-    const fileResponse = fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-        headers: {
-            'Authorization': `token ${token}`
-        }
-    });
+										// Step 3: Send the JSON data to GitHub
+									  // Get the SHA of the existing file
+									const fileResponse = fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+										headers: {
+											'Authorization': `token ${token}`
+										}
+										});
 
-    const fileData =  fileResponse.json();
-    const fileSha = fileData.sha;
+									const fileData =  fileResponse.json();
+									const fileSha = fileData.sha;
 
-    // Update the file with new content
-    const updateResponse =  fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-        method: 'PUT',
-        headers: {
-            'Authorization': `token ${token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            message: 'Updating JSON file',
-            content:encodedContent,
-            sha: fileSha // Include the SHA of the file being updated
-        })
-    });
+									// Update the file with new content
+									const updateResponse =  fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+										method: 'PUT',
+										headers: {
+											'Authorization': `token ${token}`,
+											'Content-Type': 'application/json'
+										},
+										body: JSON.stringify({
+											message: 'Updating JSON file',
+											content:encodedContent,
+											sha: fileSha // Include the SHA of the file being updated
+										})
+									});
 
-       
+									 if (response.ok) {
+										  console.log('Status: JSON file uploaded to GitHub successfully!');
+										  alert('Data uploaded to GitHub successfully!');
+										} else {
 
- } catch (error) {
-       
-        console.log('Status: Error uploading data.');
-      }
-	
-
-		
-	
-	
+								  const errorData = response.text(); // Use text to diagnose the issue
+									  console.error('Error fetching existing file:', response.status, errorData);
+										
+										 
+										}
+									  } catch (error) {
+										console.error('Request error:', error);
+										console.log('Status: Error uploading data.');
+									  }
+				
+				
+				
+				
+				
+								
+										
+			//end display method
+			
+							});
+						
 			
 			
 		
@@ -824,7 +840,7 @@ window.onclick = function(event) {
 		
 		
            
-        });
+        }
 		
 		
 
