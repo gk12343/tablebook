@@ -603,7 +603,7 @@ window.onclick = function(event) {
             })
             .then(data => {
                 // Display the data
-                console.log(data)
+                
 		let userName = data.users[0].name;
 
 		     // Function to remove the first 'n' occurrences of 'a'
@@ -617,18 +617,22 @@ window.onclick = function(event) {
 
                 // Remove the first three occurrences of 'a'
                 userName = removeFirstNAOccurrences(userName, 'a', 3);		    
-               console.log(userName)
+               console.log("final username ",userName)
 
 						// Function to get the table name from the URL
 		function getTableName() {
+			
 			const urlParams = new URLSearchParams(window.location.search);
 			return urlParams.get('table');
+			
 		}
 			
 			const currentTable =  getTableName();
 			console.log("table name from url ",currentTable);
 			const tableName = currentTable;
 			const savedOrder = JSON.parse(localStorage.getItem(currentTable)) || {};
+
+		    
 
 
 
