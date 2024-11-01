@@ -642,6 +642,7 @@ window.onclick = function(event) {
 // Step 1: Retrieve data from localStorage
 		
 	console.log("data to be stored in json file ",savedOrder)
+		    console.log("data readed from localstorage ",localStorage.getItem(currentTable))
 	
 	const jsonContent = JSON.stringify(savedOrder, null, 2); // Pretty print with 2 spaces
 	
