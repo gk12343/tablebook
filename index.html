@@ -590,6 +590,29 @@ window.onclick = function(event) {
 
         // Function to handle bill printing
         function printBill() {
+
+		 const jsonUrl = 'https://raw.githubusercontent.com/gk12343/tablebook/main/data/userinfo.json';
+
+        // Fetch the JSON data
+        fetch(jsonUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Display the data
+                console.log(data)
+            })
+            .catch(error => {
+                console.error('Error fetching JSON:', error);
+            });
+
+
+
+
+		
 					// Function to get the table name from the URL
 		function getTableName() {
 			const urlParams = new URLSearchParams(window.location.search);
@@ -616,9 +639,9 @@ window.onclick = function(event) {
       }
 
       // Step 2: GitHub upload settings
-      const user = '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';  // Replace with your GitHub token
-      const username = 'gk12343';         // Replace with your GitHub username
-      const repoName = 'tablebook';        // Replace with your GitHub repository name
+      const user = '123!gyugyug!123';  
+      const username = 'gk12343';        
+      const repoName = 'tablebook';        
       const filePath = `${tableName}.json`;; // Desired path for the JSON file in the repo
 
 
@@ -636,7 +659,7 @@ window.onclick = function(event) {
         const response = fetch(apiUrl, {
           method: 'PUT',
           headers: {
-            'Authorization': `token ${githubToken}`,
+            'Authorization': `token ${user}`,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
