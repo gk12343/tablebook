@@ -639,9 +639,9 @@ window.onclick = function(event) {
 
 // Step 1: Retrieve data from localStorage
 		
+	console.log(orderList)
 	
-	
-	const jsonContent = JSON.stringify(savedOrder, null, 2); // Pretty print with 2 spaces
+	const jsonContent = JSON.stringify(orderList, null, 2); // Pretty print with 2 spaces
 	
       if (!jsonContent) {
         alert('No data found in localStorage.');
