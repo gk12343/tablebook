@@ -1,23 +1,48 @@
-{
-  "name": "Sample Project",
-  "description": "This is a sample JSON file for demonstration.",
-  "version": "1.0.0",
-  "author": {
-    "name": "John Doe",
-    "email": "johndoe@example.com"
-  },
-  "dependencies": [
-    {
-      "name": "library-one",
-      "version": "^2.3.4"
+[
+  {
+    "name": "Sample Project",
+    "description": "This is a sample JSON file for demonstration.",
+    "version": "1.0.0",
+    "author": {
+      "name": "John Doe",
+      "email": "johndoe@example.com"
     },
-    {
-      "name": "library-two",
-      "version": "^1.5.6"
+    "dependencies": [
+      {
+        "name": "library-one",
+        "version": "^2.3.4"
+      },
+      {
+        "name": "library-two",
+        "version": "^1.5.6"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/username/repo-name"
     }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/username/repo-name"
+  },
+  {
+    "name": "Another Project",
+    "description": "Another sample project in JSON format.",
+    "version": "2.0.0",
+    "author": {
+      "name": "Jane Doe",
+      "email": "janedoe@example.com"
+    },
+    "dependencies": [
+      {
+        "name": "library-three",
+        "version": "^3.1.0"
+      },
+      {
+        "name": "library-four",
+        "version": "^4.0.1"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/username/another-repo"
+    }
   }
-}
+]
