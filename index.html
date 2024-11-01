@@ -590,8 +590,7 @@ window.onclick = function(event) {
 
         // Function to handle bill printing
         function printBill() {
-			
-				// Function to get the table name from the URL
+					// Function to get the table name from the URL
 		function getTableName() {
 			const urlParams = new URLSearchParams(window.location.search);
 			return urlParams.get('table');
@@ -601,13 +600,61 @@ window.onclick = function(event) {
 			console.log("table name from url ",currentTable);
 			const tableName = currentTable;
 			const savedOrder = JSON.parse(localStorage.getItem(currentTable)) || {};
-		
-			const data = {
-                table_name: tableName,
-				data: savedOrder
-            };
-			console.log(data);
 
+
+
+
+// Step 1: Retrieve data from localStorage
+		
+	
+	
+	const jsonContent = JSON.stringify(savedOrder, null, 2); // Pretty print with 2 spaces
+	
+      if (!jsonContent) {
+        alert('No data found in localStorage.');
+        return;
+      }
+
+      // Step 2: GitHub upload settings
+      const githubToken = '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';  // Replace with your GitHub token
+      const username = 'gk12343';         // Replace with your GitHub username
+      const repoName = 'tablebook';        // Replace with your GitHub repository name
+      const filePath = `${tableName}.json`;; // Desired path for the JSON file in the repo
+
+      const apiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`;
+
+      // Base64 encode JSON data for GitHub API
+      const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
+
+      try {
+        console.log( "Status: Uploading...");
+
+        // Step 3: Send the JSON data to GitHub
+        const response = fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${githubToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Upload localStorage data as JSON file',
+            content: encodedContent
+          })
+        });
+
+        if (response.ok) {
+          console.log('Status: JSON file uploaded to GitHub successfully!');
+          alert('Data uploaded to GitHub successfully!');
+        } else {
+          const errorData = response.json();
+          console.error('GitHub API error:', errorData);
+          console.log('Status: Error uploading to GitHub: ' + errorData.message);
+        }
+      } catch (error) {
+        console.error('Request error:', error);
+        console.log('Status: Error uploading data.');
+      }
+	
 			
 			
 		
