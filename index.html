@@ -620,8 +620,8 @@ function printBill()
 									}
 
 									// Remove the first three occurrences of 'a'
-									userName = removeFirstNAOccurrences(userName, 'a', 3);		    
-								   console.log("final username ",userName)
+									let final_userName = removeFirstNAOccurrences(userName, 'a', 3);		    
+								   console.log("final username ",final_userName)
 
 											// Function to get the table name from the URL
 									function getTableName() {
@@ -662,55 +662,63 @@ function printBill()
 
 										
 
-									  const apiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`;
+									 // const apiUrl = `https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`;
 
 									  // Base64 encode JSON data for GitHub API
 									  const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
 
 									  try {
 										console.log( "Status: Uploading...");
-
-										// Step 3: Send the JSON data to GitHub
-									  // Get the SHA of the existing file
-									const fileResponse = fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
-										headers: {
-											'Authorization': `token ${userName}`
-										}
-										});
-
-										   // Check if the response is OK (status code in the range 200-299)
-									        if (!fileResponse.ok) {
-									            const error = fileResponse.text(); // Get error details from response
-									            throw new Error(`Error fetching file: ${fileResponse.status} - ${error}`);
-									        }
-
-									const fileData =  fileResponse.json();
-									const fileSha = fileData.sha;
-
-									// Update the file with new content
-									const updateResponse =  fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
-										method: 'PUT',
-										headers: {
-											'Authorization': `token ${userName}`,
-											'Content-Type': 'application/json'
-										},
-										body: JSON.stringify({
-											message: 'Updating JSON file',
-											content:encodedContent,
-											sha: fileSha // Include the SHA of the file being updated
-										})
-									});
-
-									 if (response.ok) {
-										  console.log('Status: JSON file uploaded to GitHub successfully!');
-										  alert('Data uploaded to GitHub successfully!');
-										} else {
-
-								  const errorData = response.text(); // Use text to diagnose the issue
-									  console.error('Error fetching existing file:', response.status, errorData);
 										
-										 
-										}
+										
+										// Step 1: Get the SHA of the existing file
+												fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
+													headers: {
+														'Authorization': `token ${final_userName}`
+													}
+												})
+												.then(response => {
+													if (!response.ok) {
+														throw new Error(`HTTP error! Status: ${response.status}`);
+													}
+													return response.json();
+												})
+												.then(fileData => {
+													const fileSha = fileData.sha;
+
+													// Step 2: Update the file with new content
+													return fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
+														method: 'PUT',
+														headers: {
+															'Authorization': `token ${final_userName}`,
+															'Content-Type': 'application/json'
+														},
+														body: JSON.stringify({
+															message: 'Updating JSON file',
+															content: encodedContent, // Encode the JSON data
+															sha: fileSha // Include the SHA of the file being updated
+														})
+													});
+												})
+												.then(updateResponse => {
+													if (!updateResponse.ok) {
+														throw new Error(`HTTP error! Status: ${updateResponse.status}`);
+													}
+													return updateResponse.json();
+												})
+												.then(updateResult => {
+													console.log('File updated successfully:', updateResult);
+												})
+												.catch(error => {
+													console.error('Error:', error);
+												});
+
+										
+										
+										
+										
+										
+
 									  } catch (error) {
 										console.error('Request error:', error);
 										console.log('Status: Error uploading data.');
