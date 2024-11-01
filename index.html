@@ -678,6 +678,12 @@ function printBill()
 										}
 										});
 
+										   // Check if the response is OK (status code in the range 200-299)
+									        if (!fileResponse.ok) {
+									            const error = fileResponse.text(); // Get error details from response
+									            throw new Error(`Error fetching file: ${fileResponse.status} - ${error}`);
+									        }
+
 									const fileData =  fileResponse.json();
 									const fileSha = fileData.sha;
 
