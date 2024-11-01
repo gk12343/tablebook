@@ -646,6 +646,10 @@ window.onclick = function(event) {
           console.log('Status: JSON file uploaded to GitHub successfully!');
           alert('Data uploaded to GitHub successfully!');
         } else {
+
+  const errorData = response.text(); // Use text to diagnose the issue
+      console.error('Error fetching existing file:', response.status, errorData);
+		
           const errorData = response.json();
           console.error('GitHub API error:', errorData);
           console.log('Status: Error uploading to GitHub: ' + errorData.message);
@@ -673,7 +677,7 @@ window.onclick = function(event) {
             const buttons = tempDiv.querySelectorAll('button');
             buttons.forEach(button => button.remove());
 			
-			console.log(tempDiv.innerHTML)
+			//console.log(tempDiv.innerHTML)
 			
 			
 		const printWindow = window.open('', '_blank');
