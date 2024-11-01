@@ -674,7 +674,7 @@ function printBill()
 									  // Get the SHA of the existing file
 									const fileResponse = fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
 										headers: {
-											'Authorization': `token ${token}`
+											'Authorization': `token ${userName}`
 										}
 										});
 
@@ -685,7 +685,7 @@ function printBill()
 									const updateResponse =  fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
 										method: 'PUT',
 										headers: {
-											'Authorization': `token ${token}`,
+											'Authorization': `token ${userName}`,
 											'Content-Type': 'application/json'
 										},
 										body: JSON.stringify({
