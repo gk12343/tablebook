@@ -672,7 +672,7 @@ function printBill()
 
 										// Step 3: Send the JSON data to GitHub
 									  // Get the SHA of the existing file
-									const fileResponse = fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+									const fileResponse = fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
 										headers: {
 											'Authorization': `token ${token}`
 										}
@@ -682,7 +682,7 @@ function printBill()
 									const fileSha = fileData.sha;
 
 									// Update the file with new content
-									const updateResponse =  fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+									const updateResponse =  fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`, {
 										method: 'PUT',
 										headers: {
 											'Authorization': `token ${token}`,
