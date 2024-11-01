@@ -8,5 +8,10 @@
     "name": "coco-cola",
     "price": 3,
     "quantity": 5
+  },
+  "chapati": {
+    "name": "chapati",
+    "price": 1,
+    "quantity": 1
   }
 }
