@@ -399,7 +399,12 @@
         let totalAmount = 0;
         const orderList = {};
 
-
+function getTableName() {
+			
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get('table');
+			
+		}
 	    
 	const currentTable =  getTableName();
         //const currentTable = localStorage.getItem('currentTable');
