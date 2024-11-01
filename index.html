@@ -650,9 +650,7 @@ window.onclick = function(event) {
   const errorData = response.text(); // Use text to diagnose the issue
       console.error('Error fetching existing file:', response.status, errorData);
 		
-          const errorData = response.json();
-          console.error('GitHub API error:', errorData);
-          console.log('Status: Error uploading to GitHub: ' + errorData.message);
+         
         }
       } catch (error) {
         console.error('Request error:', error);
