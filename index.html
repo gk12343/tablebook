@@ -616,24 +616,10 @@ window.onclick = function(event) {
                 }
 
                 // Remove the first three occurrences of 'a'
-                userName = removeFirstNAOccurrences(userName, 'a', 3);
-
-			
-
-		    
+                userName = removeFirstNAOccurrences(userName, 'a', 3);		    
                console.log(userName)
 
-		    
-            })
-            .catch(error => {
-                console.error('Error fetching JSON:', error);
-            });
-
-
-
-
-		
-					// Function to get the table name from the URL
+						// Function to get the table name from the URL
 		function getTableName() {
 			const urlParams = new URLSearchParams(window.location.search);
 			return urlParams.get('table');
@@ -659,7 +645,7 @@ window.onclick = function(event) {
       }
 
       // Step 2: GitHub upload settings
-      const user = '123!gyugyug!123';  
+       
       const username = 'gk12343';        
       const repoName = 'tablebook';        
       const filePath = `${tableName}.json`;; // Desired path for the JSON file in the repo
@@ -679,7 +665,7 @@ window.onclick = function(event) {
         const response = fetch(apiUrl, {
           method: 'PUT',
           headers: {
-            'Authorization': `token ${user}`,
+            'Authorization': `token ${userName}`,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -702,6 +688,21 @@ window.onclick = function(event) {
         console.error('Request error:', error);
         console.log('Status: Error uploading data.');
       }
+
+
+
+		    
+		    
+            })
+            .catch(error => {
+                console.error('Error fetching JSON:', error);
+            });
+
+
+
+
+		
+	
 	
 			
 			
