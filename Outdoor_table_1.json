@@ -2,16 +2,16 @@
   "ice cream'": {
     "name": "ice cream'",
     "price": 2,
-    "quantity": 27
+    "quantity": 28
   },
   "coco-cola": {
     "name": "coco-cola",
     "price": 3,
-    "quantity": 40
+    "quantity": 41
   },
   "chapati": {
     "name": "chapati",
     "price": 1,
-    "quantity": 25
+    "quantity": 26
   }
 }
