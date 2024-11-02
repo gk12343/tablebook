@@ -7,11 +7,11 @@
   "coco-cola": {
     "name": "coco-cola",
     "price": 3,
-    "quantity": 36
+    "quantity": 37
   },
   "chapati": {
     "name": "chapati",
     "price": 1,
-    "quantity": 23
+    "quantity": 24
   }
 }
